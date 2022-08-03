@@ -1,6 +1,16 @@
 from guizero import App, TextBox, PushButton, Box
 
-app = App(title="texteditor")
+# function for reading files
+def open_file():
+ with open(file_name.value, "r") as f:
+ editor.value = f.read()
+
+# function for writing files
+def save_file():
+ with open(file_name.value, "w") as f:
+ f.write(editor.value)
+
+app = App(title="Note Pad")
 
 # create a box to house the controls, we want the box to span the entire width of the app
 file_controls = Box(app, align="top", width="fill")
