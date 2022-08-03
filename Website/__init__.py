@@ -12,7 +12,7 @@ DB_NAME = "database.db"
 def create_app():
     # initiating database from SQLAlchemy
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'Key to encrypt cookies and send them to browser'
+    app.config['SECRET_KEY'] = 'Key encrypt cookies and send them to browser'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
