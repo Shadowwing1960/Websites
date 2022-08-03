@@ -1,67 +1,70 @@
-
 from guizero import App, TextBox, PushButton, Box, Combo, Text
 import os
 import os.path
 import shutil
 
 
+# Code For Notepad
 def note_pad():
-  # function for reading files
-  def open_file():
-      file_path = r"C:/Users/HP Admin/PycharmProjects/Web/Notes/" + file_name.value + ".txt"
-      open(file_path)
-      with open(file_path, "r") as f:
-        editor.value = f.read()
+   # function for reading
+   def open_file():
+       file_path = r"C:/Users/HP Admin/PycharmProjects/Web/Notes/" + file_name.value + ".txt"
+       with open(file_path, "r") as f:
+           editor.value = f.read()
 
-  # function for writing files
-  def save_file():
-      with open(file_name.value + ".txt", "w") as f:
-          f.write(editor.value)
-          f.close()
-          for file in os.listdir(r"C:\Users\HP Admin\PycharmProjects\Web"):
-              if file.endswith('.txt'):
-                  shutil.move(file, r"C:\Users\HP Admin\PycharmProjects\Web\Notes")
+   # function for writing files in save Folder
+   def save_file():
+       with open(file_name.value + ".txt", "w") as f:
+           f.write(editor.value)
+           f.close()
+           for file in os.listdir(r"C:\Users\HP Admin\PycharmProjects\Web"):
+               if file.endswith('.txt'):
+                   shutil.move(file, r"C:\Users\HP Admin\PycharmProjects\Web\Notes")
 
-  def delete_file():
-      file_path = r"C:/Users/HP Admin/PycharmProjects/Web/Notes/" + file_name.value + ".txt"
-      os.remove(file_path)
+   # function for deleting files
+   def delete_file():
+       file_path = r"C:/Users/HP Admin/PycharmProjects/Web/Notes/" + file_name.value + ".txt"
+       os.remove(file_path)
 
-  app = App(title="Notepad")
+   # App itself
+   app = App(title="Notepad")
 
-  # create a box to house the controls, we want the box to span the entire width of the app
-  file_controls = Box(app, align="top", width="fill")
+   file_controls = Box(app, align="top", width="fill")
 
-  file_name = TextBox(file_controls, text="Notes", width=50, align="left")
+   file_name = TextBox(file_controls, text="Notes", width=50, align="left")
 
-  save_button = PushButton(file_controls, text="Save", command=save_file, align="right")
+   save_button = PushButton(file_controls, text="Save", command=save_file, align="right")
 
-  open_button = PushButton(file_controls, text="Open", command=open_file, align="right")
+   open_button = PushButton(file_controls, text="Open", command=open_file, align="right")
 
-  delete_button = PushButton(file_controls, text="Delete", command=delete_file, align="right")
+   delete_button = PushButton(file_controls, text="Delete", command=delete_file, align="right")
 
-  editor = TextBox(app, multiline=True, height="fill", width="fill")
+   editor = TextBox(app, multiline=True, height="fill", width="fill")
 
-  def update_bg():
-      app.bg = bg_combo.value
+   # Function to update Background
+   def update_bg():
+       app.bg = bg_combo.value
 
-  def update_text():
-      app.text_color = text_combo.value
+   # Function to update text
+   def update_text():
+       app.text_color = text_combo.value
 
-  box = Box(app, align="bottom")
+   # Colors and box for buttons
+   box = Box(app, align="bottom")
+   colors = ["black", "white", "red", "green", "blue", "yellow"]
+   app.text_color = "white"
+   app.bg = "black"
 
-  colors = ["black", "white", "red", "green", "blue"]
+   # Text and Combo
+   title1 = Text(box, text="←[Background color]", align="right")
+   bg_combo = Combo(box, align="right", options=colors, selected=app.bg, command=update_bg)
 
-  app.text_color = "white"
-  app.bg = "black"
+   title2 = Text(box, text="[Text color]→", align="left")
+   text_combo = Combo(box, align="left", options=colors, selected=app.text_color, command=update_text)
 
-  title1 = Text(box, text="←Background color", align="right")
-  bg_combo = Combo(box, align="right", options=colors, selected=app.bg, command=update_bg)
+   # Displaying App
+   app.display()
 
-  title2 = Text(box, text="←Text color", align="right")
-  text_combo = Combo(box, align="right", options=colors, selected=app.text_color, command=update_text)
 
-  app.display()
+# Running Notepad code
 note_pad()
-
-
-
