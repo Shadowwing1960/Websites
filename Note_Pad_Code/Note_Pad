@@ -1,32 +1,64 @@
-from guizero import App, TextBox, PushButton, Box
+from guizero import App, TextBox, PushButton, Box, Combo, Text
+import os
+import os.path
+import shutil
 
-# function for reading files
-def open_file():
- with open(file_name.value, "r") as f:
- editor.value = f.read()
+def note_pad():
+   # function for reading files
+   def open_file():
+       with open(file_name.value, "r") as f:
+           editor.value = f.read()
 
-# function for writing files
-def save_file():
- with open(file_name.value, "w") as f:
- f.write(editor.value)
+   # function for writing files
+   def save_file():
+       with open(file_name.value + ".txt", "w") as f:
+           f.write(editor.value)
+           f.close()
+           for file in os.listdir(r"C:\Users\HP Admin\PycharmProjects\Web"):
+               if file.endswith('.txt'):
+                   shutil.move(file, r"C:\Users\HP Admin\PycharmProjects\Web\Notes")
 
-# function for deleting files
-def delete_file():
- os.remove(file_name.value)
+   def delete_file():
+       os.remove(file_name.value)
 
 
-app = App(title="Note Pad")
 
-file_controls = Box(app, align="top", width="fill")
+   app = App(title="Notepad")
 
-file_name = TextBox(file_controls, text="text_file.txt", width=50, align="left")
+   # create a box to house the controls, we want the box to span the entire width of the app
+   file_controls = Box(app, align="top", width="fill")
 
-save_button = PushButton(file_controls, text="Save", command=save_file, align="right")
+   file_name = TextBox(file_controls, text="Notes", width=50, align="left")
 
-open_button = PushButton(file_controls, text="Open", command=open_file, align="right")
+   save_button = PushButton(file_controls, text="Save", command=save_file, align="right")
 
-delete_button = PushButton(file_controls, text="Delete", command=delete_file, align="right")
+   open_button = PushButton(file_controls, text="Open", command=open_file, align="right")
 
-editor = TextBox(app, multiline=True, height="fill", width="fill")
+   delete_button = PushButton(file_controls, text="Delete", command=delete_file, align="right")
 
-app.display()
+   editor = TextBox(app, multiline=True, height="fill", width="fill")
+
+   def update_bg():
+       app.bg = bg_combo.value
+
+   def update_text():
+       app.text_color = text_combo.value
+
+
+   box = Box(app, align="bottom")
+
+   colors = ["black", "white", "red", "green", "blue"]
+
+
+   app.text_color = "white"
+   app.bg = "black"
+
+   title1 = Text(box, text="←Background color", align="right")
+   bg_combo = Combo(box, align="right", options=colors, selected=app.bg, command=update_bg)
+
+   title2 = Text(box, text="←Text color", align="right")
+   text_combo = Combo(box, align="right", options=colors, selected=app.text_color, command=update_text)
+
+   app.display()
+note_pad()
+
