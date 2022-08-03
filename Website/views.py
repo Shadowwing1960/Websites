@@ -61,3 +61,8 @@ def to_do_list():
             flash('Task added!', category='success')
 
     return render_template("to_do_list.html", user=current_user)
+
+
+@views.route('/contact-us', methods=['GET', 'POST'])
+def contact():
+    return render_template("contact_us.html", user=current_user)
