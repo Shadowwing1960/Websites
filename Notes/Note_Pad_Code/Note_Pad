@@ -6,65 +6,90 @@ import shutil
 
 # Code For Notepad
 def note_pad():
-   # function for reading
-   def open_file():
-       file_path = r"C:/Users/HP Admin/PycharmProjects/Web/Notes/" + file_name.value + ".txt"
-       with open(file_path, "r") as f:
-           editor.value = f.read()
+    # function for reading
+    def open_file():
+        fp = r"C:/Users/HP Admin/PycharmProjects/Websites/Notes/Notes_Storage/"
+        new_path = fp + file_name.value + ".txt"
+        if os.path.exists(new_path):
+            with open(new_path, "r") as f:
+                editor.value = f.read()
+        else:
+            print("Files does not exist")
 
-   # function for writing files in save Folder
-   def save_file():
-       with open(file_name.value + ".txt", "w") as f:
-           f.write(editor.value)
-           f.close()
-           for file in os.listdir(r"C:\Users\HP Admin\PycharmProjects\Web"):
-               if file.endswith('.txt'):
-                   shutil.move(file, r"C:\Users\HP Admin\PycharmProjects\Web\Notes")
+    # function for writing files in save Folder
+    def save_file():
+        ns = r"C:/Users/HP Admin/PycharmProjects/Websites/Notes/Notes_Storage"
+        with open(file_name.value + ".txt", "w") as f:
+            f.write(editor.value)
+            f.close()
+            fl = r"C:/Users/HP Admin/PycharmProjects/Websites"
+            for file in os.listdir(fl):
+                if file.endswith('.txt'):
+                    shutil.move(file, ns)
+                    if os.path.exists(file_name.value + ".txt"):
+                        print("File already exists")
 
-   # function for deleting files
-   def delete_file():
-       file_path = r"C:/Users/HP Admin/PycharmProjects/Web/Notes/" + file_name.value + ".txt"
-       os.remove(file_path)
+    # function for deleting files
+    def delete_file():
+        fp = r"C:/Users/HP Admin/PycharmProjects/Websites/Notes/Notes_Storage/"
+        new_path = fp + file_name.value + ".txt"
+        if os.path.exists(new_path):
+            os.remove(new_path)
+        else:
+            print("Files does not exist")
 
-   # App itself
-   app = App(title="Notepad")
+    def exit_app():
+        app.destroy()
+        print("You have exited successfully")
 
-   file_controls = Box(app, align="top", width="fill")
+    # App itself
+    app = App(title="Notepad")
 
-   file_name = TextBox(file_controls, text="Notes", width=50, align="left")
+    file_controls = Box(app, align="top", width=1980, height=35)
 
-   save_button = PushButton(file_controls, text="Save", command=save_file, align="right")
+    file_name = TextBox(file_controls, text="Notes", width=45, align="left")
 
-   open_button = PushButton(file_controls, text="Open", command=open_file, align="right")
+    PushButton(file_controls, text="Exit", command=exit_app, align="right")
 
-   delete_button = PushButton(file_controls, text="Delete", command=delete_file, align="right")
+    PushButton(file_controls, text="Save", command=save_file, align="right")
 
-   editor = TextBox(app, multiline=True, height="fill", width="fill")
+    PushButton(file_controls, text="Open", command=open_file, align="right")
 
-   # Function to update Background
-   def update_bg():
-       app.bg = bg_combo.value
+    PushButton(file_controls,
+               text="Delete",
+               command=delete_file,
+               align="right")
 
-   # Function to update text
-   def update_text():
-       app.text_color = text_combo.value
+    editor = TextBox(app, multiline=True, height="fill", width="fill")
 
-   # Colors and box for buttons
-   box = Box(app, align="bottom")
-   colors = ["black", "white", "red", "green", "blue", "yellow"]
-   app.text_color = "white"
-   app.bg = "black"
+    # Function to update Background
+    def update_bg():
+        app.bg = bg_combo.value
 
-   # Text and Combo
-   title1 = Text(box, text="←[Background color]", align="right")
-   bg_combo = Combo(box, align="right", options=colors, selected=app.bg, command=update_bg)
+    # Function to update text
+    def update_text():
+        app.text_color = text_combo.value
 
-   title2 = Text(box, text="[Text color]→", align="left")
-   text_combo = Combo(box, align="left", options=colors, selected=app.text_color, command=update_text)
+    # Colors and box for buttons
+    box = Box(app, align="bottom")
+    colors = ["Black", "White", "Red", "Green", "Blue", "yellow"]
+    app.text_color = "White"
+    app.bg = "Black"
 
-   # Displaying App
-   app.display()
+    # Text and Combo
+    Text(box, text="←[Background color]", align="right")
+    bg_combo = Combo(box,
+                     align="right",
+                     options=colors,
+                     selected=app.bg,
+                     command=update_bg)
 
+    Text(box, text="[Text color]→", align="left")
+    text_combo = Combo(box,
+                       align="left",
+                       options=colors,
+                       selected=app.text_color,
+                       command=update_text)
 
-# Running Notepad code
-note_pad()
+    # Displaying App
+    app.display()
