@@ -2,7 +2,7 @@
 %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {box-sizing:border-box}
 
@@ -11,6 +11,8 @@
   max-width: 1000px;
   position: relative;
   margin: auto;
+   left: -175px;
+   top: 0px;
 }
 
 /* Hide the images by default */
@@ -24,8 +26,8 @@
   position: absolute;
   top: 50%;
   width: auto;
-  margin-top: -22px;
   padding: 16px;
+  margin-top: -22px;
   color: white;
   font-weight: bold;
   font-size: 18px;
@@ -75,6 +77,8 @@
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
+  position: relative;
+  left: -175px;
 }
 
 .active, .dot:hover {
@@ -83,55 +87,98 @@
 
 /* Fading animation */
 .fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-fill-mode: forwards;
   animation-name: fade;
   animation-duration: 1.5s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
 }
-    
-    </style>
-    <title>Home</title>
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+.paragraph {
+  width: 320px;
+  height: 0px;
+  padding: 10px;
+  margin: 0;
+  position: relative;
+  left: 900px;
+  top: -570px;
+}
+
+</style>
 </head>
 <body>
-    <!-- Slideshow container -->
+
 <div class="slideshow-container">
 
-  <!-- Full-width images with number and caption text -->
-  <div class="mySlides fade">
-    <div class="numbertext">1 / 3</div>
-    <img src="img1.jpg" style="width:100%">
-    <div class="text">Caption Text</div>
-  </div>
-
-  <div class="mySlides fade">
-    <div class="numbertext">2 / 3</div>
-    <img src="img2.jpg" style="width:100%">
-    <div class="text">Caption Two</div>
-  </div>
-
-  <div class="mySlides fade">
-    <div class="numbertext">3 / 3</div>
-    <img src="img3.jpg" style="width:100%">
-    <div class="text">Caption Three</div>
-  </div>
-
-  <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="{{url_for('static', filename='note.jpg')}}" alt="list" loading="eager"  style="width:100%">
+  <div class="text"><button><a href="/notepad">Note Pad</a></button></div>
 </div>
-<br>
 
-<!-- The dots/circles -->
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="{{url_for('static', filename='list.jpg')}}" alt="note" loading="eager" style="width:100%">
+  <div class="text"><button><a href="/todolist">To Do List</a></button></div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="{{url_for('static', filename='contact.jpg')}}" alt="contact" loading="eager" style="width:100%">
+  <div class="text"><button><a href="/contact-us">Contact Us</a></button></div>
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">❮</a>
+<a class="next" onclick="plusSlides(1)">❯</a>
+
+</div>
+
+<div class="paragraph">
+  <h1>
+   Introduction
+  </h1>
+  <p>
+
+  This website is made for education aid.<br>
+  This is the stuff included with out aid:<br>
+  - A To Do List.<br>
+  It's a list of tasks you need to complete
+  or things that you want to do after implementing
+  them onto the website. Most typically,
+  they're organised in order of priority.
+  Traditionally, they're written on a piece of paper
+  but here we have it on the website digitally
+  and it is to server as a memory aid. <br>
+  - A note pad <br>
+  A Note Pad is a basic text editor that's built into this website.
+  It will open as a GUi so it can be used anywhere and the user
+  it not limited to this website.
+  It is excellent for writing  text documents
+  that you want to save as plain text. It will serve perfectly
+  as a tool for saving valuable notes and any information you write down
+</p>
+
+</div>
+
 <div style="text-align:center">
   <span class="dot" onclick="currentSlide(1)"></span>
   <span class="dot" onclick="currentSlide(2)"></span>
   <span class="dot" onclick="currentSlide(3)"></span>
 </div>
-<scirpt>
-    let slideIndex = 1;
+
+<script>
+let slideIndex = 1;
 showSlides(slideIndex);
 
 // Next/previous controls
@@ -159,7 +206,10 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
 }
-    </script>
+
+
+</script>
 </body>
+
 </html>
 {% endblock %}
