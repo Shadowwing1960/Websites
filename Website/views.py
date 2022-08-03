@@ -23,6 +23,19 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+@views.route('/notepad')
+def notepad():
+    # Specific path
+    path = 'C:/Users/HP Admin/PycharmProjects/Website/Notes/Notes_Code'
+    sys.path.insert(0, path)
+
+    # importing function
+    from Notes.Note_Pad_Code.Note_Pad import note_pad
+   
+    # Running Gui Note Pad
+    note_pad()
+    return redirect(url_for('/'))
   
 @views.route('/todolist', methods=['GET', 'POST'])
 def to_do_list():
