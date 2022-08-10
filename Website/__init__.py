@@ -12,10 +12,11 @@ DB_NAME = "database.db"
 def create_app():
     # initiating database from SQLAlchemy
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'Key encrypt cookies and send them to browser'
+    app.config['SECRET_KEY'] = 'Key to encrypt cookies and send them to browser'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
+    # registering blueprints
     from .views import views
     from .auth import auth
 
@@ -26,10 +27,12 @@ def create_app():
 
     create_database(app)
 
+    # Managing Logged out or in users
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
+    # Loading Specific user
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
@@ -37,6 +40,7 @@ def create_app():
     return app
 
 
+# Data Base creation if not existent
 def create_database(app):
     if not path.exists('Website/' + DB_NAME):
         db.create_all(app=app)
