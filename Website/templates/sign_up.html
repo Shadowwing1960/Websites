@@ -1,7 +1,22 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
 content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+      .center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+  text-align: center;
+}
+    </style>
+
+</head>
+<body >
 <form method="POST">
-  <h3 align="center">Sign Up</h3>
+  <h3 class="center">Sign Up</h3>
   <div class="form-group">
     <label for="email">Email Address</label>
     <input
@@ -45,4 +60,7 @@ content %}
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+</body>
+</html>
 {% endblock %}
