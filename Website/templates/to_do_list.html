@@ -1,6 +1,21 @@
 {% extends "base.html" %} {% block title %}To_do_list{% endblock %} {% block content
 %}
-<h1 align="center">To Do List</h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+      .center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+  text-align: center;
+}
+    </style>
+
+</head>
+<body >
+<h1 class="center">To Do List</h1>
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
   <li class="list-group-item">
@@ -18,4 +33,6 @@
     <button type="submit" class="btn btn-primary">Add Task</button>
   </div>
 </form>
+</body>
+</html>
 {% endblock %}
