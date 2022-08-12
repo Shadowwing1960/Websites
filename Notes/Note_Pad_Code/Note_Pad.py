@@ -26,8 +26,6 @@ def note_pad():
             for file in os.listdir(fl):
                 if file.endswith('.txt'):
                     shutil.move(file, ns)
-                    if os.path.exists(file_name.value + ".txt"):
-                        print("File already exists")
 
     # function for deleting files
     def delete_file():
