@@ -17,14 +17,14 @@
     />
 
     <title>{% block title %}Home{% endblock %}</title>
-  </head>
-  <body>
-  <style>
+    <style>
     body {
   background-color: #8e9394;
 
 }
   </style>
+  </head>
+  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
         class="navbar-toggler"
@@ -88,8 +88,8 @@
     ></script>
 
     <script
-      type="text/javascript"
       src="{{ url_for('static', filename='index.js') }}"
     ></script>
   </body>
 </html>
+
