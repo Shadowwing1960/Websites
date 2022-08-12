@@ -27,6 +27,7 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
+            flash('Task Removed', category='success')
 
     return jsonify({})
 
@@ -49,7 +50,9 @@ def notepad():
     # Running Gui Note Pad
     redirecting.start()
     notes.start()
+    flash('Note Pad Opened', category='success')
     return render_template("home.html", user=current_user)
+
 
 # To do list URL
 @views.route('/todolist', methods=['GET', 'POST'])
